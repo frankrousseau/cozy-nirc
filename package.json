@@ -1,6 +1,7 @@
 {
   "name": "nirc",
   "version": "0.0.1-28",
+  "main": "server.coffee",
   "dependencies": {
     "express": "3.0",
     "ejs": "0.8.3",
@@ -12,6 +13,6 @@
   },
   "subdomain": "nirc",
   "scripts": {
-    "start": "node server.js"
+    "start": "coffee server.coffee"
   }
 }
