@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	// initialize web socket
-	var socket = io.connect({ "host": "https://frank.cozyclouc.cc/apps/nirc"});
+	var socket = io.connect(window.location.protocol + "//" + window.location.host, { "resource": "apps/nirc/socket.io"});
 
   // prepopulate fields with last used values
   if (typeof(Storage) !== "undefined" && localStorage && localStorage.ircOptions) {
