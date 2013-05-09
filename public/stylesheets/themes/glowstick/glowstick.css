@@ -1,9 +1,13 @@
-body {	
+body {
   background:   #22252A;
 	font-family:  Consolas, 'Liberation Mono', Courier, monospace;
 	font-weight:  bold;
 	font-size:    13px;
 	color:        #fff;
+}
+
+a {
+  color: #fff;
 }
 
 #connect-form h1 i {
@@ -32,12 +36,12 @@ body {
 }
 
 #tabs {
-  border-bottom-color: #555753;
+  border-color: #555753;
 }
 
 .tab {
-  color:              #75766A;
-  border-right-color: #555753;
+  color:        #75766A;
+  border-color: #555753;
 }
 
 .tab.active {
@@ -66,9 +70,16 @@ body {
 	background: #333;
 }
 
+.tab-view .nicklist {
+  border-color: #555753;
+}
+
+.tab-view .nicklist li:hover {
+  text-decoration: underline;
+}
+
 #command-input {
 	font-family:  Consolas, 'Liberation Mono', Courier, monospace;
 	font-weight:  bold;
 	font-size:		13px;
-  border-color: #555753;
 }
