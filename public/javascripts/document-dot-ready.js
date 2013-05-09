@@ -1,11 +1,11 @@
 $(document).ready(function () {
 	// initialize web socket
-	var socket = io.connect(null);
+	var socket = io.connect(host: "https://frank.cozyclouc.cc/apps/nirc");
 
   // prepopulate fields with last used values
   if (typeof(Storage) !== "undefined" && localStorage && localStorage.ircOptions) {
     var opts = JSON.parse(localStorage.ircOptions);
-    
+
     // populate each options field, assuming the option name matches the input ID
     // now with logic to accomodate checkboxes!
     for (option in opts) {
