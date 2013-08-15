@@ -13,13 +13,19 @@
   <body>
 		<form id="connect-form" onSubmit="return false;">
 			<h1><i>n</i>irc</h1>
-			<label for="server">Server *</label> <input type="text" id="server"> irc.freenode.net</input>
-			<label for="port">Port</label> <input type="text" id="port">6667</input>
-      <label for="nickname">Nickname *</label> <input type="text" id="nickname">NewCozyUser</input>
-			<label for="user">User</label> <input type="text" id="user">NewCozyUser</input>
-      <label for="password">Password</label> <input type="password" id="password" />
-			<label for="channels">Channels *</label> <input type="text" id="channels">#cozycloud, #nirc, #node.js</input>
-      <input type="checkbox" id="ssl"/> <label for="ssl">SSL</label>
+			<label for="server">Server *</label> 
+            <input type="text" id="server" value="irc.freenode.net" />
+			<label for="port">Port</label> <input type="text" id="port"
+            value="6697" />
+      <label for="nickname">Nickname *</label> <input type="text" id="nickname"
+      value="NewCozyUser" />
+			<label for="user">User</label> 
+            <input type="text" id="user" placeholder="optional"/>
+      <label for="password">Password</label> 
+          <input type="password" id="password" placeholder="optional" />
+			<label for="channels">Channels *</label> <input type="text"
+            id="channels" value="#cozycloud, #nirc"></input>
+      <input type="checkbox" id="ssl" value="true" checked/> <label for="ssl">SSL</label>
 			<input type="submit" id="connect" value="Connect"/>
 		</form>
 
