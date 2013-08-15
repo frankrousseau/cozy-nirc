@@ -301,10 +301,23 @@
       closeTab(data.channel);
     });
 
+    socket.on('abort', function (data) {
+        alert('Can\'t connect to given server.');
+        disconnect();
+    });
+
+    socket.on('connectionFailure', function (data) {
+        var tab = $('.tab[title="status"]');
+        var tabView = getTabView(tab.attr('title'));
+        var newLine = $('<div>').addClass('line ');
+        newLine.append('Failed to connect to given server, try again...');
+        tabView.append(newLine);
+    });
+
     socket.on('message', function (data) {
       if (data.receiver.search(/^[#]/) == -1 && data.receiver != 'status' && data.from) newTab(data.from);
-      
       var msgData = {
+
         receiver: data.receiver,
         message:  data.message,
         from:     data.from
