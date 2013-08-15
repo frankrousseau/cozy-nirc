@@ -17,14 +17,14 @@ app.configure ->
   app.get "/", (req, res) ->
     res.render "index"
 
-
-
 #
 #  Initialize the Server
 #
-server = http.createServer(app).listen(process.env.PORT or 3000)
+port = process.env.PORT || 3000
+server = http.createServer(app).listen(port)
 
 #
 #  Load Main (Loads Socket.io & IRC)
 #
 require("./lib/main.js") server
+console.log 'Nirc listening on port 3000...'
