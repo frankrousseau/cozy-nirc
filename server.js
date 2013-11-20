@@ -24,7 +24,8 @@ app.configure(function () {
 /*
   Initialize the Server
 */
-var server = http.createServer(app).listen(process.env.PORT || 3000);
+var server = http.createServer(app).listen(process.env.PORT || 3000,
+                                           "127.0.0.1");
 
 /*
   Load Main (Loads Socket.io & IRC)

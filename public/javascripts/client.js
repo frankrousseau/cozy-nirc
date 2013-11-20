@@ -317,7 +317,6 @@
     socket.on('message', function (data) {
       if (data.receiver.search(/^[#]/) == -1 && data.receiver != 'status' && data.from) newTab(data.from);
       var msgData = {
-
         receiver: data.receiver,
         message:  data.message,
         from:     data.from
