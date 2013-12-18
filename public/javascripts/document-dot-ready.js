@@ -22,9 +22,20 @@ $(document).ready(function () {
 
   // initialize nirc
   $('#connect').click(function () {
+    if (!navigator.onLine) {
+      alert('You must be connected to the internet.');
+      return false;
+    }
+
     // if supports webkit notifications, and if they haven't allowed already
-    if(window.webkitNotifications && window.webkitNotifications.checkPermission() != 0) {
-      window.webkitNotifications.requestPermission();
+    if (window.webkitNotifications && navigator.userAgent.indexOf("Chrome") > -1) {
+      if (window.webkitNotifications.checkPermission() == 1) {
+        window.webkitNotifications.requestPermission();
+      }
+    } else if (window.Notification && navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
+      if (Notification.permission == 'default') {
+        Notification.requestPermission();
+      }
     }
     $.nirc(socket);
   });

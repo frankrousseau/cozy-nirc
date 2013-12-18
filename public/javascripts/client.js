@@ -26,7 +26,14 @@
     var tabs          = $('#tabs');
     var tabViews      = $('#tab-views');
     var commandInput  = $('#command-input');
-    var supportsNotifications = !!window.webkitNotifications;
+    var maxLines      = 500;
+
+    //Get current time
+    function currentTime(){
+    	var date = new Date;
+    	var ts = ["0" + date.getHours(), "0" + date.getMinutes(), "0" + date.getSeconds()].join(":");
+    	return ts.replace(/\d(\d\d)/g, "$1");
+    }
 
     var getTabView = function(title) {
       return $('.tab-view[title="'+title.toLowerCase()+'"]');
@@ -41,7 +48,7 @@
       var actualMsg = $('<span>');
 
 
-      var timestamp = $("<span>").addClass('timestamp').text(new Date().toString().split(' ')[4]);
+      var timestamp = $("<span>").addClass('timestamp').text(currentTime());
       newLine.append(timestamp);
 
       var actionMatch = msgData.message.match(/\u0001ACTION (.*)\u0001/);
@@ -70,14 +77,18 @@
           newLine.addClass('mentioned'); //for highlighting
           // if either the user is in another browser tab/app, or if the user is in a diff irc channel
           if (tabNotFocused) { //bring on the webkit notification
-            var notification = newNotification(msgData.message, msgData.receiver, "/images/nirc32.png");
-            if (notification) { //in case they haven't authorized, the above will return nothin'
-              notification.onclick = function() {
-                window.focus(); //takes user to the browser tab
-                focusTab(tab); //focuses the correct channel tab
-                this.cancel(); //closes the notification
-              };
-              notification.show();
+            if (window.webkitNotifications && navigator.userAgent.indexOf("Chrome") > -1) {
+              var notification = newNotification(msgData.message, msgData.receiver, "/images/nirc32.png");
+              if (notification) { //in case they haven't authorized, the above will return nothin'
+                notification.onclick = function() {
+                  window.focus(); //takes user to the browser tab
+                  focusTab(tab); //focuses the correct channel tab
+                  this.cancel(); //closes the notification
+                };
+                notification.show();
+              }
+            }else if (window.Notification && navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
+              newNotificationW3C(msgData.message, msgData.receiver,"/images/nirc32.png",tab);
             }
           }
         }
@@ -87,17 +98,33 @@
 
       actualMsg.text(actionMatch ? actionMatch[1] : msgData.message);
       var urlRegex = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/gi;
-      actualMsg.html(actualMsg.text().replace(urlRegex, "<a target='_blank' href='$1'>$1</a>"));
+      actualMsg.html(actualMsg.html().replace(urlRegex, "<a target='_blank' href='$1'>$1</a>"));
       newLine.append(actualMsg);
 
       tabView.append(newLine)
              .scrollTop(tabView[0].scrollHeight);
+
+      var visibleLines = tabView.find('.line').toArray();
+      while (visibleLines.length > maxLines) {
+        visibleLines[0].remove();
+        visibleLines.shift(); // in case we use this later in the function
+      }
     }
 
     var newNotification = function (msg, title, icon) {
-      var authorized = supportsNotifications && window.webkitNotifications.checkPermission() == 0;
-      if (authorized) {
+      if (window.webkitNotifications.checkPermission() == 0) {
         return window.webkitNotifications.createNotification(icon,title,msg);
+      }
+    }
+
+    var newNotificationW3C = function (msg, title, icon,tab) {
+      if (Notification.permission == 'granted') {
+        var notification = new Notification(title, { dir: "auto",body: msg, icon: icon,});
+        notification.onclick = function() {
+          window.focus(); //takes user to the browser tab
+          focusTab(tab); //focuses the correct channel tab
+          this.cancel(); //closes the notification
+        };
       }
     }
 
@@ -316,8 +343,9 @@
 
     socket.on('message', function (data) {
       if (data.receiver.search(/^[#]/) == -1 && data.receiver != 'status' && data.from) newTab(data.from);
+
       var msgData = {
-        receiver: data.receiver,
+        receiver: (data.receiver == options.nickname ? 'status' : data.receiver),
         message:  data.message,
         from:     data.from
       }

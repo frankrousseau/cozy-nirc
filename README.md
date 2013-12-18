@@ -2,8 +2,7 @@
 A simple web browser IRC client written in Node.js.
 
 ## Demo
-
-Give it a go: http://nirc.jit.su/
+http://nirc.herokuapp.com/
 
 ## Setup
 Node.js and NPM are required and should be setup before attempting to setup nirc.

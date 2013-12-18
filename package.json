@@ -1,18 +1,17 @@
 {
   "name": "nirc",
-  "version": "0.0.1-30",
-  "main": "server.coffee",
+  "version": "1.0.0",
+  "main": "server.js",
   "dependencies": {
-    "express": "3.0.0",
-    "ejs": "0.8.3",
-    "socket.io": "0.9.10"
-  },
+    "express": "3.4.3",
+    "ejs": "0.8.4",
+    "socket.io": "0.9.16"
+  }
   "engines": {
     "node": "0.8.x",
     "npm": "1.1.x"
   },
-  "subdomain": "nirc",
   "scripts": {
-    "start": "coffee server.coffee"
+    "start": "node server.js"
   }
 }
