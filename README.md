@@ -10,8 +10,8 @@ Node.js and NPM are required and should be setup before attempting to setup nirc
 - Clone the repo and cd into the directory:
 
 ```
-      $ git clone https://github.com/cjstewart88/nirc.git
-      $ cd nirc
+      $ git clone https://github.com/frankrousseau/cozy-nirc.git
+      $ cd cozy-nirc
 ```
 
 - Install dependencies using npm:
@@ -26,7 +26,7 @@ Node.js and NPM are required and should be setup before attempting to setup nirc
       $ node server
 ```
 
-- Open the app in your browser at `http://localhost:3000/`.
+- Open the app in your browser at `http://localhost:9888/`.
 
 ## Themes
 Roll your own theme by:
@@ -45,7 +45,7 @@ help make nirc better.
 - Clone the repo and cd into the directory:
 
 ```
-      $ git clone https://github.com/cjstewart88/nirc.git
+      $ git clone https://github.com/frankrousseau/cozy-nirc.git
       $ cd nirc
 ```
 
@@ -61,4 +61,4 @@ functionality is broken.
 - Push to your fork Open a Pull Request!
 
 #### Our IRC Channel
-Join us in **#nirc** on **irc.freenode.net** for disscussion or to just say hey!
+Join us in **#nirc** on **irc.freenode.net** for discussion or to just say hey!
